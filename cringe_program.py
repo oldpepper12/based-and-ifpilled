@@ -18,3 +18,6 @@ def can_vote(age: int):
         return "dksalfjlsadj"
     else:
         return "FDSAFASDFASDFsadfklsdk bruh"
+
+def bruh():
+    pass

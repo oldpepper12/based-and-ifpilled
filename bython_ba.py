@@ -31,6 +31,8 @@ class BythonBTW:
     def on_visit_node(self, node: ast.AST):
         if isinstance(node, ast.FunctionDef):
             body = node.body
+            does_docstring_exist = False
+
             if len(body):
                 first_stmt = body[0]
                 if isinstance(first_stmt, ast.Expr):
@@ -39,6 +41,13 @@ class BythonBTW:
                     if isinstance(val, ast.Constant):
                         if isinstance(val.value, str):
                             self.on_visit_docstring(val.value, val)
+                            does_docstring_exist = True
+            
+            if not does_docstring_exist:
+                self.create_issue(
+                    "No docstring found???? how tf are ppl supposed to know how to use ur function?",
+                    node
+                )
 
         if isinstance(node, ast.If):
             self.create_issue(
